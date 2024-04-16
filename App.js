@@ -13,6 +13,9 @@ import Home from "./src/screens/Home";
 import Transferencia from "./src/screens/Transferencia";
 import Configuracoes from "./src/screens/Configuracoes";
 import Gestao from "./src/screens/Gestao";
+import Suporte from "./src/screens/Suporte";
+import Idiomas from "./src/screens/Idiomas";
+import MinhaConta from "./src/screens/MinhaConta";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -55,12 +58,13 @@ export default function App() {
           screenOptions={{
             tabBarStyle: {
               backgroundColor: "rgba(49, 49, 49, 0.9)",
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
-              marginVertical: 10,
-              margin: 4,
+              // backgroundColor: "#ff0000",
+              // borderTopLeftRadius: 20,
+              // borderTopRightRadius: 20,
+              // borderBottomLeftRadius: 20,
+              // borderBottomRightRadius: 20,
+              // marginVertical: 10,
+              // margin: 4,
             },
           }}
         >
@@ -89,6 +93,7 @@ export default function App() {
             component={Gestao} // Adicionando a tela de gestão de lucros ao Tab Navigator
             options={{
               headerShown: false,
+              tabBarButton: () => null,
               tabBarIcon: () => (
                 <FontAwesome name="line-chart" size={20} color="grey" />
               ),
@@ -103,6 +108,21 @@ export default function App() {
                 <Icon as={SettingsIcon} m="2" w="$19" h="$20" color="gray" />
               ),
             }}
+          />
+          <Tab.Screen
+            name="Suporte"
+            component={Suporte}
+            options={{ headerShown: false, tabBarButton: () => null }} // Isso oculta o botão do menu de navegação
+          />
+          <Tab.Screen
+            name="Idiomas"
+            component={Idiomas}
+            options={{ headerShown: false, tabBarButton: () => null }} // Isso oculta o botão do menu de navegação
+          />
+          <Tab.Screen
+            name="MinhaConta"
+            component={MinhaConta}
+            options={{ headerShown: false, tabBarButton: () => null }} // Isso oculta o botão do menu de navegação
           />
         </Tab.Navigator>
       </NavigationContainer>
