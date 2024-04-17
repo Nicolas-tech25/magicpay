@@ -1,59 +1,38 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  FlatList,
-} from "react-native";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const Idiomas = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const { t, i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
 
   const languages = [
-    { id: "en", name: "English" },
-    { id: "pt", name: "Português" },
+    { id: 'en', name: 'English' },
+    { id: 'pt', name: 'Português' },
+    { id: 'es', name: 'Español' },
+    { id: 'fr', name: 'Français' },
+    { id: 'de', name: 'Deutsch' },
     // Adicione mais idiomas conforme necessário
   ];
 
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language.name);
-    setModalVisible(false);
+    i18n.changeLanguage(language.id); // Mude o idioma selecionado
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Selected Language:</Text>
-      <TouchableOpacity
-        style={styles.dropdown}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.dropdownText}>{selectedLanguage}</Text>
-      </TouchableOpacity>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <FlatList
-            data={languages}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.languageItem}
-                onPress={() => handleLanguageSelect(item)}
-              >
-                <Text style={{ color: "#fff" }}>{item.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      </Modal>
+      <View style={styles.languageSpheres}>
+        {languages.map((language) => (
+          <TouchableOpacity
+            key={language.id}
+            style={[styles.languageSphere, { backgroundColor: selectedLanguage === language.name ? '#FF7E3F' : '#FFFFFF' }]}
+            onPress={() => handleLanguageSelect(language)}
+          >
+            <Text style={styles.languageSphereText}>{language.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };
@@ -61,49 +40,28 @@ const Idiomas = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000",
-    color: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  label: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fff",
-    marginVertical: 30,
-  },
-  dropdown: {
-    width: "80%",
-    height: 50,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 10,
-    justifyContent: "center",
+  languageSpheres: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
-    marginBottom: 20,
-    elevation: 3, // Adiciona uma sombra
   },
-  dropdownText: {
+  languageSphere: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: 10,
+  },
+  languageSphereText: {
     fontSize: 16,
-    color: "#000", // Cor do texto agora é preto
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    color: "#fff",
-  },
-  languageItem: {
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    width: "100%",
-    alignItems: "center",
-    color: "#fff",
-  },
-  languageItemText: {
-    fontSize: 18,
-    color: "#fff",
+    textAlign: 'center',
   },
 });
 
