@@ -16,6 +16,8 @@ import Idiomas from './src/screens/Idiomas';
 import MinhaConta from './src/screens/MinhaConta';
 import Splash from './src/screens/Splash';
 import Historico from './src/screens/Historico';
+import PagamentoQR from './src/screens/PagamentoQR';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -64,9 +66,9 @@ export default function App() {
               ),
             }}
           />
-          <Tab.Screen
-            name="Transferencia"
-            component={Transferencia}
+           <Tab.Screen
+            name="Pagamento"
+            component={PagamentoQR}
             options={{
               headerShown: false,
               tabBarIcon: () => (
