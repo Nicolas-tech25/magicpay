@@ -9,7 +9,8 @@ import { config } from "@gluestack-ui/config";
 
 
 export default function Historico() {
-  const { email, displayName: nome } = auth.currentUser;
+  const email = currentUser ? currentUser.email : '';
+
 
   return (
     <>

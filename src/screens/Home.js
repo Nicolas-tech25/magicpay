@@ -36,9 +36,11 @@ import { config } from "@gluestack-ui/config";
 
 const Home = () => {
   // Acessando dados do usuário logado
-  console.log(auth.currentUser);
+  const currentUser = auth.currentUser;
+  const { email, displayName: nome } = currentUser || {};
+
   const navigation = useNavigation();
-  const { email, displayName: nome } = auth.currentUser;
+
   return (
     <GluestackUIProvider config={config}>
       <View style={styles.container}>
